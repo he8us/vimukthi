@@ -19,7 +19,7 @@ const SHOW_TODOS = {
     ALL : '#/'
 }
 
-class Todo extends Component {
+export class Todo extends Component {
     
     state = {
         newTodo : '',
@@ -98,7 +98,7 @@ class Todo extends Component {
             appBody = 
             <Fragment>
                 <section className="main">
-                <ToggleTodo activeCount={activeTodoCount} toggleHander={(event) => this.toggleAllTodosHandler(event)}/>
+                    <ToggleTodo activeCount={activeTodoCount} toggleHander={(event) => this.toggleAllTodosHandler(event)}/>
                     <TodoList
                         todoList={getVisibleTodos(this.props.todoList,activeLink)}
                         currentEdit={this.props.currentEdit}
