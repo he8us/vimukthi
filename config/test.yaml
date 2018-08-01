@@ -1,0 +1,7 @@
+services:
+  api-doc: false
+  client: false
+
+server:
+  port: 10042
+  repository: InMemory

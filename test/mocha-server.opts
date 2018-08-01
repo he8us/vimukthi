@@ -1,0 +1,7 @@
+--require babel-register
+--require babel-polyfill
+--ui bdd
+--recursive
+
+./test/api/**/*.js
+./test/domain/**/*.js

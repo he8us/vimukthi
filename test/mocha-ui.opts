@@ -1,0 +1,7 @@
+--require babel-register
+--require babel-polyfill
+--require ./test/mocks/cssNullCompiler.js
+--require ./test/mocks/fakeBrowser.js
+--ui bdd
+--recursive
+./test/client/*@(.js|.jsx)

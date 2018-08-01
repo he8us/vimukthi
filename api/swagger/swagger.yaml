@@ -1,0 +1,228 @@
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: Things To Do API server
+
+# basePath prefixes all resource paths
+basePath: /api
+
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+tags:
+  - name: Tests
+    description: Test API connection
+  - name: To Do's
+    description: Everything about your To Do's
+
+paths:
+  /todo:
+    x-swagger-router-controller: todo
+    get:
+      tags:
+        - To Do's
+      summary: Returns the list of todos
+      operationId: list
+      responses:
+        "200":
+          description: success
+          schema:
+            $ref: "#/definitions/TodoListResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+    post:
+      tags:
+        - To Do's
+      summary: Add a new todo
+      operationId: createTodo
+      parameters:
+          - in: body
+            name: body
+            schema:
+              $ref: "#/definitions/TodoCreateBody"
+
+      responses:
+        200:
+          description: success
+          schema:
+            $ref: "#/definitions/TodoCreatedResponse"
+
+        400:
+          description: "Invalid input"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /todo/{id}:
+    x-swagger-router-controller: todo
+    parameters:
+      - in: "path"
+        name: id
+        type: string
+        format: uuid
+        description: The Todo ID
+        required: true
+
+    get:
+      tags:
+        - To Do's
+      summary: Get a single item to do
+      operationId: getById
+
+      responses:
+        200:
+          description: success
+          schema:
+            $ref: '#/definitions/TodoDetailsResponse'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
+    put:
+      tags:
+        - To Do's
+      summary: update an item
+      operationId: updateTodo
+      parameters:
+        - in : body
+          name: body
+          schema:
+            $ref: "#/definitions/TodoUpdateBody"
+      responses:
+        200:
+          description: success
+          schema:
+            $ref: '#/definitions/TodoUpdatedResponse'
+        400:
+          description: "Invalid input"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
+    delete:
+      tags:
+        - To Do's
+      summary: Delete an existing item to do
+      operationId: deleteTodo
+      responses:
+        200:
+          description: success
+          schema:
+            $ref: '#/definitions/TodoDeletedResponse'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
+
+  /hello:
+    x-swagger-router-controller: hello_world
+    get:
+      description: Returns 'Hello' to the caller. Can be used for testing
+      operationId: hello
+      tags:
+        - Tests
+      parameters:
+        - name: name
+          in: query
+          description: The name of the person to whom to say hello
+          required: false
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/HelloWorldResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /swagger:
+    x-swagger-pipe: swagger_raw
+
+definitions:
+
+  Todo:
+    type: "object"
+    required:
+      - id
+      - label
+    properties:
+      id:
+        type: "string"
+        format: "uuid"
+        example: 9f282611-e0fd-5650-8953-89c8e342da0b
+      label:
+        type: "string"
+        example: Create a Todo UI Client
+      completed:
+        type: "boolean"
+        default: false
+
+  ErrorResponse:
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+
+  TodoListResponse:
+      type: array
+      items:
+        $ref: '#/definitions/Todo'
+
+  TodoCreateBody:
+    type: "object"
+    required:
+      - label
+    properties:
+      label:
+        type: "string"
+        example: Create a Todo UI Client
+      completed:
+        type: "boolean"
+        default: false
+
+  TodoUpdateBody:
+    type: "object"
+    properties:
+      label:
+        type: "string"
+        example: Create a Todo UI Client
+      completed:
+        type: "boolean"
+        default: false
+
+  TodoCreatedResponse:
+    $ref: '#/definitions/Todo'
+
+  TodoDetailsResponse:
+    $ref: '#/definitions/Todo'
+
+  TodoUpdatedResponse:
+    $ref: '#/definitions/Todo'
+
+  TodoDeletedResponse:
+    properties:
+      message:
+        type: string
+
+  HelloWorldResponse:
+    properties:
+      message:
+        type: string

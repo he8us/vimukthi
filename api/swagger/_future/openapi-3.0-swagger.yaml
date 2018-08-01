@@ -1,0 +1,104 @@
+openapi: "3.0.1"
+info:
+  version: "0.0.1"
+  title: ToDo
+
+tags:
+  - name: todo
+    description: Everything about your ToDos
+
+paths:
+  /todo:
+    x-swagger-router-controller: todo
+    get:
+      tags:
+        - todo
+      summary: Returns the list of todos
+      operationId: list
+      responses:
+        "200":
+          $ref: "#/components/responses/TodoListResponse"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+
+    post:
+      tags:
+        - todo
+      summary: Add a new todo
+      operationId: create
+      parameters:
+        - in: "header"
+          name: "label"
+          description: "Todo"
+          required: true
+          schema:
+            $ref: "#/components/schemas/Todo"
+
+      responses:
+        200:
+          $ref: "#/components/responses/TodoCreateResponse"
+
+        405:
+          description: "Invalid input"
+
+        default:
+          $ref: "#/components/responses/ErrorResponse"
+
+
+  /swagger:
+    x-swagger-pipe: swagger_raw
+
+
+components:
+  schemas:
+    TodoList:
+      type: "object"
+      properties:
+        todos:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/Todo"
+
+    Todo:
+      type: "object"
+      properties:
+        id:
+          type: "string"
+          format: "uuid"
+        label:
+          type: "string"
+        status:
+          type: "string"
+          enum:
+            - open
+            - done
+    Error:
+      type: "object"
+      properties:
+        message:
+          type: "string"
+
+  responses:
+    ErrorResponse:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    TodoListResponse:
+      description: success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TodoList'
+
+
+    TodoCreateResponse:
+      description: success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Todo'
+
+

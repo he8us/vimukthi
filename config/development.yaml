@@ -1,0 +1,10 @@
+services:
+  api-editor: true
+
+server:
+  port: 3000
+
+swagger:
+  bagpipes:
+    _json_error_handler:
+        includeErrStack: true
