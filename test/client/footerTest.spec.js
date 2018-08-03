@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import React from 'react';
 import Adapter from 'enzyme-adapter-react-16';
 import {shallow,configure} from 'enzyme';
-import Footer from '../../client/js/modules/todo/components/footer'
+import Footer from '../../client/js/modules/todo/components/Footer'
 
 configure({adapter: new Adapter()});
 
@@ -11,7 +11,7 @@ function setup(activeCount,completedCount){
         activeCount,
         completedCount,
         todoIdentidiers : {},
-        activeLink : '',
+        currentFilter : '',
         clearCompleted : () => {}
 	};
 

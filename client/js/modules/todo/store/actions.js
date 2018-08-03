@@ -1,13 +1,13 @@
 import HTTP from '../../../utils/Http';
 import * as actions from './actionTypes';
 
-export function asynFunctionInit(){
+export function asynFunctionInit() {
     return {
-        type : actions.TODOS_ASYNC_INIT
+        type: actions.TODOS_ASYNC_INIT
     }
 }
 
-export function loadTodos(){
+export function loadTodos() {
     return dispatch => {
         dispatch(asynFunctionInit());
         HTTP.get('/todo').then(
@@ -18,17 +18,17 @@ export function loadTodos(){
     }
 }
 
-export function loadTodosSuccess(payload){
+export function loadTodosSuccess(payload) {
     return {
-        type : actions.LOAD_TODOS_SUCCESS,
-        payload : payload
+        type: actions.LOAD_TODOS_SUCCESS,
+        payload: payload
     }
 }
 
-export function addTodo(payload){
+export function addTodo(payload) {
     return dispatch => {
         dispatch(asynFunctionInit())
-        HTTP.post('/todo',payload).then(
+        HTTP.post('/todo', payload).then(
             todo => {
                 dispatch(addTodoSuccess(todo.data));
             }
@@ -40,24 +40,24 @@ export function addTodo(payload){
     }
 }
 
-export function addTodoSuccess(payload){
+export function addTodoSuccess(payload) {
     return {
-        type : actions.ADD_TODO_SUCCESS,
+        type: actions.ADD_TODO_SUCCESS,
         payload
     }
 }
 
-export function addTodoFaliure(payload){
+export function addTodoFaliure(payload) {
     return {
-        type : actions.ADD_TODO_FALIURE,
+        type: actions.ADD_TODO_FALIURE,
         payload
     }
 }
 
-export function udpateTodo({id,label,completed}){
+export function udpateTodo({id, label, completed}) {
     return dispatch => {
         dispatch(asynFunctionInit());
-        HTTP.put('/todo/'+id, {label,completed}).then(
+        HTTP.put('/todo/' + id, {label, completed}).then(
             todo => {
                 dispatch(updateTodoSuccess(todo.data))
             }
@@ -69,24 +69,24 @@ export function udpateTodo({id,label,completed}){
     }
 }
 
-export function updateTodoSuccess(payload){
+export function updateTodoSuccess(payload) {
     return {
-        type : actions.UPDATE_TODO_SUCCESS,
+        type: actions.UPDATE_TODO_SUCCESS,
         payload
     }
 }
 
-export function udpateTodoFaliure(payload){
+export function udpateTodoFaliure(payload) {
     return {
-        type : actions.UPDATE_TODO_FALIURE,
+        type: actions.UPDATE_TODO_FALIURE,
         payload
     }
 }
 
-export function deleteTodo(payload){
+export function deleteTodo(payload) {
     return dispatch => {
         dispatch(asynFunctionInit());
-        HTTP.delete('/todo/'+payload).then(
+        HTTP.delete('/todo/' + payload).then(
             todo => {
                 dispatch(deleteTodoSuccess(payload))
             }
@@ -99,23 +99,23 @@ export function deleteTodo(payload){
 }
 
 
-export function deleteTodoSuccess(payload){
+export function deleteTodoSuccess(payload) {
     return {
-        type : actions.DELETE_TODO_SUCCESS,
+        type: actions.DELETE_TODO_SUCCESS,
         payload
     }
 }
 
-export function deleteTodoFaliure(payload){
+export function deleteTodoFaliure(payload) {
     return {
-        type : actions.DELETE_TODO_FALIURE,
+        type: actions.DELETE_TODO_FALIURE,
         payload
     }
 }
 
-export function updateCurrentEdit(payload){
+export function updateCurrentEdit(payload) {
     return {
-        type : actions.UPDATE_CURRENT_TODO,
+        type: actions.UPDATE_CURRENT_TODO,
         payload
     }
 }

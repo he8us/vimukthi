@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import React from 'react';
 import Adapter from 'enzyme-adapter-react-16';
 import {shallow,configure} from 'enzyme';
-import Todo from '../../client/js/modules/todo/container/todo'
+import Todo from '../../client/js/modules/todo/components/Todo'
 
 configure({adapter: new Adapter()});
 

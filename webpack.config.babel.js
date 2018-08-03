@@ -21,6 +21,9 @@ export default () => {
             './client/index.js'
         ],
         mode: ENV,
+        resolve: {
+            extensions: ['.js', '.jsx', '.css']
+        },
         output: {
             filename: ENV === "production" ? 'bundle-[hash].js' : 'bundle.js',
             publicPath: config.get('server.publicPath'),

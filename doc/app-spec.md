@@ -16,7 +16,7 @@ Recommended file structure:
 ```
 client/
 └── index.html
-└── index.js
+└── Footer.jsx
 └── css/
 │   └── app.css
 └── js/
